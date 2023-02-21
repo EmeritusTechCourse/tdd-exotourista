@@ -27,26 +27,27 @@ test('dropdown renders list correctly', async () => {
 
 
 test('callback fires with correct option', async () => {
-    // const dropdownData = [
-    //     {
-    //         name: 'Karachi', 
-    //         value: 'karachi'
-    //     },
-    //     {
-    //         name: 'Islamabad',
-    //         value: 'islamabad'
-    //     },
-    //     {
-    //         name: 'Sukkur',
-    //         value: 'sukkur'
-    //     }
-    // ];
-    // const callback = jest.fn((result) => {
-    //     expect(result.name).toBe('Islamabad');
-    //     expect(result.value).toBe('islamabad');
-    // });
-    // render(<Dropdown onSelect={callback} items={dropdownData}/>);
-    // const selector = await screen.findByRole('listbox');
-    // userEvent.change(selector, {target: 'islamabad'});
+    const dropdownData = [
+        {
+            name: 'Karachi', 
+            value: 'karachi'
+        },
+        {
+            name: 'Islamabad',
+            value: 'islamabad'
+        },
+        {
+            name: 'Sukkur',
+            value: 'sukkur'
+        }
+    ];
+    const callback = jest.fn((result) => {
+        expect(result.name).toBe('Islamabad');
+        expect(result.value).toBe('islamabad');
+    });
+    render(<Dropdown onSelect={callback} items={dropdownData}/>);
+    const selector = await screen.findByRole('listbox');
+    userEvent.selectOptions(selector, ['islamabad']);
     // expect(callback).toHaveBeenCalled();
+    expect(screen.getByText('Islamabad').selected).toBe(true)
 });
